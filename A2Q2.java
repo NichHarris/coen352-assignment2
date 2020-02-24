@@ -30,7 +30,7 @@ public class A2Q2 {
         arr[i] = temp;
     }
 
-    public static void mergerSort(Integer[] arr, int lo, int mid, int hi){
+    public static void mergeSort(Integer[] arr, int lo, int mid, int hi){
         Integer[] temp = new Integer[arr.length];
         int x = lo;
         int y = mid;
@@ -80,7 +80,7 @@ public class A2Q2 {
         int start = 0;
         for(int i = 0; i < blocks - 1; i++){
             System.out.print("\nMerging blocks " + i + " and " + (i + 1) + ": ");
-            mergerSort(array, 0, M*(i+1), M*(i+2));
+            mergeSort(array, 0, M*(i+1), M*(i+2));
             print(array, start, (start + 2*M));
             start = start + M;
         }
