@@ -12,7 +12,7 @@ results. It should also check if all the time objects are distinct and print a p
 accordingly. */
 
 import java.util.Random;
-import java.io.IOException;
+import java.util.Scanner;
 public class Time implements Comparable<Time> {
 
     private int hour,minute,second;
@@ -23,48 +23,46 @@ public class Time implements Comparable<Time> {
         this.second = s;
     }
 
-    // public boolean compare(Time t){
-    //     int comp = this.hour - t.hour;
-    //     if(comp != 0){
-    //         return false;
-    //     }
-    //     comp = this.minute - t.minute;
-    //     if(comp != 0){
-    //         return false;
-    //     }
-    //     comp = this.second - t.second;
-    //     if(comp != 0){
-    //         return false;
-    //     }
-    //     return true;
-        
-    // }
+    public int compareHour(Time t){
+        int comp = this.hour - t.hour;
+        return comp;
+    }
+    public int compareMin(Time t){
+        int comp = this.minute - t.minute;
+        return comp;
+    }
+    public int compareSec(Time t){
+        int comp = this.second - t.second;
+        return comp;
+    }
 
     public int compareTo(Time t){
-        int comp = this.hour - t.hour;
+        int comp = this.compareHour(t);
         if(comp == 0){
-            comp = this.minute - t.hour;
+            comp = this.compareMin(t);
         }
         if(comp == 0){
-            comp = this.second - t.second;
+            comp = this.compareSec(t);
         }
         return comp;
     }
 
-    public static void insertionSort(Time[] t){
+    public static void sort(Time[] t){
         for(int i = 1; i < t.length; i++){
-            int key = t[i];
-            for(int j = i - 1; j >= 0 && t[i].compareTo(key) > 0; j--){
-                t[j+1] = t[j];
+            for(int j = 0; j < t.length - 1; j++){
+                if(t[j].compareTo(t[j+1]) > 0){
+                    Time temp = t[j];
+                    t[j] = t[j+1];
+                    t[j+1] = temp;
+                }
             }
-            t[j+1] = key;
         }
     }
 
-    public static boolean isDistinct(Comparable[] t){
+    public static boolean isDistinct(Time[] t){
         for(int i = 0; i < t.length; i++){
             for(int j = i+1; j < t.length; j++){
-                if(t[i].compareTo(t[j]) > 0){
+                if(t[i].compareTo(t[j]) == 0){
                     return false;
                 }
             }
@@ -80,19 +78,16 @@ public class Time implements Comparable<Time> {
     public static void main(String[] args){
         int size = 0;
         Random rand = new Random();
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the size of an array: ");
-        try{
-            size = System.in.read();
-        }
-        catch(IOException e){
-            System.out.println("Error reading from user");
-        }
+        size = scanner.nextInt();
 
         Time time[] = new Time[size];
         for(int i = 0; i < size; i++){
             time[i] = new Time(rand.nextInt(24), rand.nextInt(60), rand.nextInt(60));
         }
-        System.out.println(size);
+        System.out.println("Sorted times: ");
+        sort(time);
         print(time);
         if(isDistinct(time)){
             System.out.println("All time objects are distinct");
@@ -100,6 +95,5 @@ public class Time implements Comparable<Time> {
         else{
             System.out.println("Time objects are not distinct");
         }
-
     }
 }
