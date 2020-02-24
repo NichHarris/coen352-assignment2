@@ -1,6 +1,9 @@
 //Nicholas Harris
 //harris.nicholas1998@gmail.com
 
+/* Write a recursive Java method that rearranges an array of integer values so 
+that all the even values appear before all the odd values. Test your program. */
+
 public class A2Q1 {
 
     public static void evenOddArrange(int[] arr, int k){
