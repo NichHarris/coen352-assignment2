@@ -48,7 +48,7 @@ public class ClientFile{
 
     public static void main(String[] args) throws IOException{
         FileData[] storedData = new FileData[50];
-        String iFile = "F:\\Programing\\coen352-winter2020\\Assignment 3\\Question 2";
+        String iFile = "input.txt";
         String oFile = "output.txt";
         int size = inputData(storedData, iFile);
         sortByVolume(storedData, size);
