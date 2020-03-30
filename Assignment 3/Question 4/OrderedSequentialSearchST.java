@@ -4,6 +4,7 @@
 /* 3.1.3 Develop a symbol-table implementation OrderedSequentialSearchST that uses an
 ordered linked list as the underlying data structure to implement our ordered symbol-table APL */
 
+import java.io.BufferedReader;
 import java.util.*;
 
 /* public class ST<Key extends Comparable<Key>, Value>
@@ -127,7 +128,7 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value> imple
         }
         return first.key;
     }
-    // try using the last node (requires changing other code)
+    
     public Key max() {
         if(first == null){
             return null;
@@ -140,7 +141,7 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value> imple
     }
 
     public Key floor(Key key) {
-        if(first == null || first.key.compareTo(key)){
+        if(first == null || first.key.compareTo(key) > 0){
             return null;
         }
         Node current = first;
@@ -232,36 +233,34 @@ public class OrderedSequentialSearchST<Key extends Comparable<Key>, Value> imple
     }
 
     // public Iterable<Key> keys(Key low, Key high) {
-    //     // if(first == null){
-    //     //     return ;
-    //     // }
-    //     // Node current = first;
-    //     // while(current != null && current.key.compareTo(low) < 0){
-    //     //     current = current.next;
-    //     // }
-    //     // while(current != null && current.key.compareTo(high) <= 0){
-    //     //     current = current.next;
-    //     // }
+    //     Queue<Key> queue = new Queue<Key>();
+    //     for(int i = rank(low); i < rank(high); i++){
+    //         queue.enqueue(current.key);
+    //     }
+    //     if(contains(high)){
+    //         queue.enqueue(keys[rank(high)]);
+    //     }
+    //     return queue;
     // }
 
     public Iterator<Key> keys() {
-        // return keys(select(0), select(this.size -1));
-        Queue<Key> queue = new LinkedList<Key>();
+        Queue<Key> queue = new Queue<Key>();
         Node current = first;
         while(current != null){
-            queue.add(current.key);
+            queue.enqueue(current.key);
             current = current.next;
         }
         return queue;
     }
     
     public static void main(String[] args) {
-        ST<String, Integer> st = new ST<String, Integer>();
-        for (int i = 0; !StdIn.isEmpty(); i++) {
-            String key = StdIn.readString();
+        OrderedSequentialSearchST<String, Integer> st = new OrderedSequentialSearchST<String, Integer>();
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; !scanner.hasNext(); i++) {
+            String key = scanner.nextLine();
             st.put(key, i);
         }
         for (String s : st.keys())
-            StdOut.println(s + " " + st.get(s));
+            System.out.println(s + " " + st.get(s));
     }
 }
